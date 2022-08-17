@@ -18,31 +18,43 @@ router.get('/', async (req, res) => {
     const posts = postData.map((post) => post.get({ plain: true }));
 
     // Pass serialized data and session flag into template
-    res.render('homepage', { 
-      posts, 
-      logged_in: req.session.logged_in 
+    res.render('homepage', {
+      posts,
+      logged_in: req.session.logged_in
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.get('/posts/:id', async (req, res) => {
+// Single Post page
+router.get('/posts/:id', withAuth, async (req, res) => {
   try {
-    const projectData = await Post.findByPk(req.params.id, {
-      include: [
+    const postData = await Post.findByPk(req.params.id, {
+      include: [User,
         {
-          model: User,
-          attributes: ['username'],
+          model: Comment,
+          include: [User]
         },
       ],
     });
 
-    const project = projectData.get({ plain: true });
+    const posts = postData.get({ plain: true });
+    const loggedIn = req.session.user ? true : false;
 
-    res.render('post', {
-      ...project,
-      logged_in: req.session.logged_in
+    if (postData.userId != req.session.user.id) {
+      // render comment page on homepage if not your post
+      return res.render('comment', {
+        ...posts,
+        loggedIn,
+        username: req.session.user?.username
+      });
+    }
+    // render the updateDelete page if it's your post
+    res.render('updateDelete', {
+      ...posts,
+      loggedIn,
+      username: req.session.user?.username
     });
   } catch (err) {
     res.status(500).json(err);
@@ -55,7 +67,7 @@ router.get('/profile', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{ model: Post }],
     });
 
     const user = userData.get({ plain: true });
