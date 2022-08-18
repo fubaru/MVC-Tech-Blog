@@ -2,6 +2,7 @@ const express = require('express');
 const router = require('express').Router();
 const { Post, User, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
+const { route } = require('../homeRoutes');
 
 router.get('/', async, (req,res) => {
   try{
@@ -38,7 +39,8 @@ router.get('/:id', async, (req,res) => {
 router.post('/', withAuth, async (req, res) => {
   try {
     const newPost = await Post.create({
-      ...req.body,
+      title: req.body.title,
+      description: req.body.description,
       user_id: req.session.user_id,
     });
 
@@ -47,6 +49,21 @@ router.post('/', withAuth, async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+router.put('/:id', withAuth, async, (req,res) => {
+  try{
+    const updatePost = await Post.update(req.body, {
+      where: {
+        id: req.params.id
+      }
+    });
+
+    res.json(updatePost);
+  }
+  catch (err) {
+    res.status(500).json(err);
+  }
+})
 
 router.delete('/:id', withAuth, async (req, res) => {
   try {
