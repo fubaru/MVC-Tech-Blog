@@ -1,14 +1,18 @@
 [
   {
-    "name": "Music Near Me",
-    "description": "A mobile app that will send you notifications whenever a concert is playing in your area."
+   "title": "Austin's first post",
+   "description": "Hello Gang" 
   },
   {
-    "name": "The Ultimate Tech Quiz",
-    "description": "A web app that will give users 10 new technical questions each day and track their progress in things like programming, cybersecurity, database architecture, and more!"
+    "title": "Austin's second post",
+    "description": "Thank you all for coming."
   },
   {
-    "name": "Roll 'Em Up",
-    "description": "A game for Windows and macOS where players move a ball through a series of increasingly challenging mazes."
+    "title": "Phil's first post",
+    "description": "Do your best and you will succeed!"
+  },
+  {
+    "title": "Brian's first post",
+    "description": "I am here to help, let me know whenever you're ready."
   }
 ]
