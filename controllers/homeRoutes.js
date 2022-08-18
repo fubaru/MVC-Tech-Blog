@@ -42,7 +42,7 @@ router.get('/posts/:id', withAuth, async (req, res) => {
     const posts = postData.get({ plain: true });
     const loggedIn = req.session.user ? true : false;
 
-    if (postData.userId != req.session.user.id) {
+    if (postData.user_id != req.session.user.id) {
       // render comment page on homepage if not your post
       return res.render('comment', {
         ...posts,
