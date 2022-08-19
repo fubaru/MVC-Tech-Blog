@@ -1,5 +1,5 @@
+const express = require('express');
 const router = require('express').Route();
-const { json } = require('express');
 const { User, Post, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
@@ -19,7 +19,7 @@ router.get('/', async (req,res)=>{
     }
 });
 
-router.get('/:id', async, (req,res) => {
+router.get('/:id', async (req,res) => {
   try{
     const commentData = await Comment.findByPk(req.params.id, {
       include: [
@@ -35,7 +35,7 @@ router.get('/:id', async, (req,res) => {
   }
 });
 
-router.post('/', withAuth, async, (req,res) => {
+router.post('/', withAuth, async (req,res) => {
   try {
     const newComment = await Comment.create({
       body: req.body.comment,
@@ -50,7 +50,7 @@ router.post('/', withAuth, async, (req,res) => {
   }
 });
 
-router.put('/:id', withAuth, async, (req,res) => {
+router.put('/:id', withAuth, async (req,res) => {
   try {
     const updateComment = await Comment.update(req.body, {
       where: {
@@ -65,7 +65,7 @@ router.put('/:id', withAuth, async, (req,res) => {
   }
 });
 
-router.delete('/:id', withAuth, async, (req,res) => {
+router.delete('/:id', withAuth, async (req,res) => {
   try{ 
     const delComment = await Comment.destroy({
       where: {
