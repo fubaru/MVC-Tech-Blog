@@ -1,26 +1,7 @@
 [
   {
-    "id": 1,
     "title": "Austin's first post",
     "description": "Hello Gang",
-    "date_created": "2022-08-01 12:10:00"
-  },
-  {
-    "id": 1,
-    "title": "Austin's second post",
-    "description": "Thank you all for coming.",
-    "date_created": "2022-08-02 12:05:00"
-  },
-  {
-    "id": 2,
-    "title": "Phil's first post",
-    "description": "Do your best and you will succeed!",
-    "date_created": "2022-08-03 12:05:00"
-  },
-  {
-    "id": 3,
-    "title": "Brian's first post",
-    "description": "I am here to help, let me know whenever you're ready.",
-    "date_created": "2022-08-04 12:05:00"
+    "user_id": 1
   }
 ]
